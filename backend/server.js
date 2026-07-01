@@ -22,6 +22,10 @@ app.use("/api/foods", foodRoutes);
 app.use("/api/orders", orderRoutes);
 app.use("/api/categories", categoryRoutes);
 
+app.get("/", (req, res) => {
+  res.send(" Food Delivery API is running successfully!");
+});
+
 // DB + Server
 mongoose.set('returnDocument', 'after');
 mongoose.set('strictQuery', false);
