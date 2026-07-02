@@ -41,7 +41,7 @@ export default function Register() {
     if (result.success) {
       if (result.needsVerification) {
         setShowVerification(true);
-        toast.success("Verification email sent! Please check your Gmail.");
+        toast.success("Verification email sent! Please check your Gmail Spam.");
       } else {
         toast.success("Registration successful!");
         if (isAdmin(result.user)) {
@@ -81,7 +81,7 @@ export default function Register() {
         }
       }, 100);
     } else {
-      toast.error("Email not verified yet. Please check your Gmail.");
+      toast.error("Email not verified yet. Please check your Gmail Spam.");
     }
   };
 
