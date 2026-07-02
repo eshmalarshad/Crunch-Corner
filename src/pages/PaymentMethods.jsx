@@ -22,7 +22,7 @@ export default function PaymentMethods() {
   const dispatch = useDispatch();
 
   const subtotal = cartItems.reduce((sum, item) => {
-    const itemPrice = Number(item.totalPrice) || Number(item.price) || 0;
+    const itemPrice = Number(item.price) || 0;
     const qty = Number(item.qty) || 1;
     return sum + (itemPrice * qty);
   }, 0);
@@ -64,7 +64,7 @@ export default function PaymentMethods() {
         userId: user._id,
         customerName: user.name || user.displayName,
         items: cartItems.map((item) => {
-          const price = Number(item.totalPrice) || Number(item.price) || 0;
+          const price = Number(item.price) || 0;
           const qty = Number(item.qty) || 1;
           return {
             id: item.id,
