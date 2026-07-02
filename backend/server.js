@@ -22,20 +22,16 @@ app.use("/api/foods", foodRoutes);
 app.use("/api/orders", orderRoutes);
 app.use("/api/categories", categoryRoutes);
 
-app.get("/", (req, res) => {
-  res.send(" Food Delivery API is running successfully!");
-});
-
 // DB + Server
 mongoose.set('returnDocument', 'after');
 mongoose.set('strictQuery', false);
 mongoose.connect(process.env.MONGO_URI)
   .then(() => {
-    console.log("✅ MongoDB Connected successfully!");
+    console.log(" MongoDB Connected successfully!");
     app.listen(5000, () => console.log("🚀 Server running on port 5000"));
   })
   .catch(err => {
-    console.error("❌ MongoDB connection error:", err.message);
+    console.error(" MongoDB connection error:", err.message);
     console.error("Full error details:", err);
   });
 
