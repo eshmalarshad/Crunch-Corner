@@ -132,6 +132,7 @@ export default function Menu() {
   return (
     <div className="p-4 pb-20">
       {/* HEADER */}
+      <div className="max-w-7xl mx-auto">
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -204,56 +205,56 @@ export default function Menu() {
           className="mb-8"
         >
           <div className="flex items-center justify-between mb-4">
-            <h3 className="text-xl font-bold text-warmGray-900 dark:text-white">
-               Deals
+            <h3 className="text-2xl font-bold text-warmGray-900 dark:text-white">
+              🔥 Hot Deals
             </h3>
             <div className="flex gap-2">
               <motion.button
                 whileTap={{ scale: 0.9 }}
                 onClick={() => setDealScrollIndex(prev => Math.max(0, prev - 1))}
-                className="p-2 rounded-full bg-white dark:bg-warmGray-800 shadow-md"
+                className="p-3 rounded-full bg-white dark:bg-warmGray-800 shadow-md"
               >
-                <FiChevronLeft />
+                <FiChevronLeft className="w-6 h-6" />
               </motion.button>
               <motion.button
                 whileTap={{ scale: 0.9 }}
                 onClick={() => setDealScrollIndex(prev => Math.min(dealItems.length - 1, prev + 1))}
-                className="p-2 rounded-full bg-white dark:bg-warmGray-800 shadow-md"
+                className="p-3 rounded-full bg-white dark:bg-warmGray-800 shadow-md"
               >
-                <FiChevronRight />
+                <FiChevronRight className="w-6 h-6" />
               </motion.button>
             </div>
           </div>
           
           <div className="overflow-hidden">
             <motion.div
-              className="flex gap-4"
-              animate={{ x: `-${dealScrollIndex * 200}px` }}
+              className="flex gap-5"
+              animate={{ x: `-${dealScrollIndex * 250}px` }}
               transition={{ type: "spring", stiffness: 300, damping: 30 }}
             >
               {dealItems.map((food, idx) => (
                 <motion.div
                   key={food._id}
                   onClick={() => navigate(`/food/${food._id}`)}
-                  className="min-w-[180px] bg-white dark:bg-warmGray-900 rounded-2xl shadow-lg overflow-hidden border border-warmGray-100 dark:border-warmGray-800 cursor-pointer"
-                  whileHover={{ y: -4 }}
+                  className="min-w-[240px] bg-white dark:bg-warmGray-900 rounded-2xl shadow-lg overflow-hidden border border-warmGray-100 dark:border-warmGray-800 cursor-pointer"
+                  whileHover={{ y: -6 }}
                   transition={{ type: "spring", stiffness: 300 }}
                 >
                   <div className="relative">
                     <img
                       src={food.image}
                       alt={food.name}
-                      className="w-full h-32 object-cover"
+                      className="w-full h-48 object-cover"
                     />
-                    <div className="absolute top-2 right-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded-full">
+                    <div className="absolute top-3 left-3 bg-red-500 text-white text-xs font-bold px-3 py-1 rounded-full">
                       DEAL
                     </div>
                   </div>
-                  <div className="p-3">
-                    <h4 className="font-bold text-sm text-warmGray-900 dark:text-white mb-1">
+                  <div className="p-5">
+                    <h4 className="font-bold text-lg text-warmGray-900 dark:text-white mb-2">
                       {food.name}
                     </h4>
-                    <span className="text-primary-600 dark:text-primary-400 font-bold text-lg">
+                    <span className="text-primary-600 dark:text-primary-400 font-bold text-xl">
                       Rs. {getDisplayPrice(food)}
                     </span>
                   </div>
@@ -269,26 +270,26 @@ export default function Menu() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.4 }}
-        className="mb-6"
+        className="mb-8"
       >
-        <h3 className="text-lg font-bold text-warmGray-900 dark:text-white mb-3">
+        <h3 className="text-xl font-bold text-warmGray-900 dark:text-white mb-4">
           Categories
         </h3>
-        <div className="flex gap-3 overflow-x-auto pb-2">
+        <div className="flex gap-4 overflow-x-auto pb-2">
           {/* All button */}
           <motion.button
             whileTap={{ scale: 0.95 }}
             onClick={() => setSelectedCategory(null)}
-            className={`flex flex-col items-center gap-2 p-2 rounded-xl transition-all duration-200 min-w-[100px] ${
+            className={`flex flex-col items-center gap-2 p-3 rounded-xl transition-all duration-200 min-w-[120px] ${
               selectedCategory === null
                 ? "bg-primary-500 text-white shadow-md"
                 : "bg-white dark:bg-warmGray-900 border border-warmGray-200 dark:border-warmGray-800"
             }`}
           >
-            <div className="w-16 h-16 bg-primary-100 dark:bg-warmGray-800 rounded-full flex items-center justify-center text-2xl">
+            <div className="w-20 h-20 bg-primary-100 dark:bg-warmGray-800 rounded-full flex items-center justify-center text-3xl">
               🍽️
             </div>
-            <span className="font-semibold text-sm">All</span>
+            <span className="font-semibold text-base">All</span>
           </motion.button>
           {/* Category buttons */}
           {getPrioritizedCategories().map((cat) => (
@@ -296,16 +297,16 @@ export default function Menu() {
               key={cat._id}
               whileTap={{ scale: 0.95 }}
               onClick={() => setSelectedCategory(cat._id)}
-              className={`flex flex-col items-center gap-2 p-2 rounded-xl transition-all duration-200 min-w-[100px] ${
+              className={`flex flex-col items-center gap-2 p-3 rounded-xl transition-all duration-200 min-w-[120px] ${
                 selectedCategory === cat._id
                   ? "bg-primary-500 text-white shadow-md"
                   : "bg-white dark:bg-warmGray-900 border border-warmGray-200 dark:border-warmGray-800"
               }`}
             >
-              <div className="w-16 h-16 bg-primary-100 dark:bg-warmGray-800 rounded-full flex items-center justify-center text-2xl">
+              <div className="w-20 h-20 bg-primary-100 dark:bg-warmGray-800 rounded-full flex items-center justify-center text-3xl">
                 {cat.name.toLowerCase() === "deals" ? "🔥" : "🍴"}
               </div>
-              <span className="font-semibold text-sm">
+              <span className="font-semibold text-base">
                 {cat.name}
               </span>
             </motion.button>
@@ -318,14 +319,14 @@ export default function Menu() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.4 }}
-        className="space-y-8"
+        className="space-y-10"
       >
         {filteredMenuData.map((categoryData, idx) => (
           <div key={categoryData.id}>
-            <h3 className="text-xl font-bold text-warmGray-900 dark:text-white mb-4">
+            <h3 className="text-2xl font-bold text-warmGray-900 dark:text-white mb-6">
               {categoryData.name}
             </h3>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
               {categoryData.items.map((food) => {
                 const displayPrice = getDisplayPrice(food);
                 return (
@@ -334,25 +335,25 @@ export default function Menu() {
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.4 + idx * 0.1 }}
-                    className="bg-white dark:bg-warmGray-900 rounded-2xl shadow-lg overflow-hidden border border-warmGray-100 dark:border-warmGray-800 cursor-pointer"
+                    className="bg-white dark:bg-warmGray-900 rounded-2xl shadow-lg overflow-hidden border border-warmGray-100 dark:border-warmGray-800 cursor-pointer hover:shadow-2xl hover:-translate-y-2 transition-all duration-300"
                     onClick={() => navigate(`/food/${food._id}`)}
                   >
                     <img
                       src={food.image}
                       alt={food.name}
-                      className="w-full h-32 object-cover"
+                      className="w-full h-48 object-cover"
                     />
-                    <div className="p-3">
-                      <h4 className="font-bold text-base text-warmGray-900 dark:text-white mb-1">
+                    <div className="p-5">
+                      <h4 className="font-bold text-xl text-warmGray-900 dark:text-white mb-2">
                         {food.name}
                       </h4>
                       {food.sizes && food.sizes.length > 0 && (
-                        <span className="text-xs text-warmGray-500 mb-1 block">
+                        <span className="text-xs text-warmGray-500 mb-3 block">
                           Starting from
                         </span>
                       )}
                       <div className="flex justify-between items-center">
-                        <span className="text-primary-600 dark:text-primary-400 font-bold text-lg">
+                        <span className="text-primary-600 dark:text-primary-400 font-bold text-2xl">
                           Rs. {displayPrice}
                         </span>
                       </div>
@@ -364,6 +365,7 @@ export default function Menu() {
           </div>
         ))}
       </motion.div>
+      </div>
     </div>
   );
 }
