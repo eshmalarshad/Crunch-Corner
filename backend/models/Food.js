@@ -14,6 +14,10 @@ const foodSchema = new mongoose.Schema({
     type: Boolean,
     default: true
   },
+  isDeal: {
+    type: Boolean,
+    default: false
+  },
   sizes: [{
     name: String,
     price: Number,
