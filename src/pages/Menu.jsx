@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { FiSearch } from "react-icons/fi";
+import { FiSearch, FiChevronLeft, FiChevronRight } from "react-icons/fi";
 import { motion } from "framer-motion";
 import { addToCart } from "../redux/cartSlice";
 import API from "../utils/api";
@@ -13,6 +13,7 @@ export default function Menu() {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [foods, setFoods] = useState([]);
   const [categories, setCategories] = useState([]);
+  const [dealScrollIndex, setDealScrollIndex] = useState(0);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { user } = useAuth();
@@ -58,6 +59,9 @@ export default function Menu() {
     dispatch(addToCart({ ...food, id: food._id }));
   };
 
+  // Get deals
+  const dealItems = foods.filter(food => food.isDeal && food.available);
+
   // Function to get filtered data considering search
   const getFilteredMenuData = () => {
     let filtered = foods;
@@ -87,7 +91,26 @@ export default function Menu() {
       grouped[catId].items.push(food);
     });
 
-    return Object.values(grouped);
+    // Convert to array and prioritize Deals category first
+    let groupedArray = Object.values(grouped);
+    const dealsIndex = groupedArray.findIndex(group => group.name.toLowerCase() === "deals");
+    if (dealsIndex > -1) {
+      const dealsGroup = groupedArray.splice(dealsIndex, 1)[0];
+      groupedArray.unshift(dealsGroup);
+    }
+
+    return groupedArray;
+  };
+
+  // Prioritize Deals category in categories list
+  const getPrioritizedCategories = () => {
+    let prioritized = [...categories];
+    const dealsIndex = prioritized.findIndex(cat => cat.name.toLowerCase() === "deals");
+    if (dealsIndex > -1) {
+      const dealsCategory = prioritized.splice(dealsIndex, 1)[0];
+      prioritized.unshift(dealsCategory);
+    }
+    return prioritized;
   };
 
   // Function to get display price for menu items
@@ -167,11 +190,80 @@ export default function Menu() {
         </div>
       </motion.div>
 
+      {/* DEALS CAROUSEL */}
+      {dealItems.length > 0 && (
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3 }}
+          className="mb-8"
+        >
+          <div className="flex items-center justify-between mb-4">
+            <h3 className="text-xl font-bold text-warmGray-900 dark:text-white">
+              🔥 Hot Deals
+            </h3>
+            <div className="flex gap-2">
+              <motion.button
+                whileTap={{ scale: 0.9 }}
+                onClick={() => setDealScrollIndex(prev => Math.max(0, prev - 1))}
+                className="p-2 rounded-full bg-white dark:bg-warmGray-800 shadow-md"
+              >
+                <FiChevronLeft />
+              </motion.button>
+              <motion.button
+                whileTap={{ scale: 0.9 }}
+                onClick={() => setDealScrollIndex(prev => Math.min(dealItems.length - 1, prev + 1))}
+                className="p-2 rounded-full bg-white dark:bg-warmGray-800 shadow-md"
+              >
+                <FiChevronRight />
+              </motion.button>
+            </div>
+          </div>
+          
+          <div className="overflow-hidden">
+            <motion.div
+              className="flex gap-4"
+              animate={{ x: `-${dealScrollIndex * 200}px` }}
+              transition={{ type: "spring", stiffness: 300, damping: 30 }}
+            >
+              {dealItems.map((food, idx) => (
+                <motion.div
+                  key={food._id}
+                  onClick={() => navigate(`/food/${food._id}`)}
+                  className="min-w-[180px] bg-white dark:bg-warmGray-900 rounded-2xl shadow-lg overflow-hidden border border-warmGray-100 dark:border-warmGray-800 cursor-pointer"
+                  whileHover={{ y: -4 }}
+                  transition={{ type: "spring", stiffness: 300 }}
+                >
+                  <div className="relative">
+                    <img
+                      src={food.image}
+                      alt={food.name}
+                      className="w-full h-32 object-cover"
+                    />
+                    <div className="absolute top-2 right-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded-full">
+                      DEAL
+                    </div>
+                  </div>
+                  <div className="p-3">
+                    <h4 className="font-bold text-sm text-warmGray-900 dark:text-white mb-1">
+                      {food.name}
+                    </h4>
+                    <span className="text-primary-600 dark:text-primary-400 font-bold text-lg">
+                      Rs. {getDisplayPrice(food)}
+                    </span>
+                  </div>
+                </motion.div>
+              ))}
+            </motion.div>
+          </div>
+        </motion.div>
+      )}
+
       {/* CATEGORIES WITH PICTURES */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.3 }}
+        transition={{ delay: 0.4 }}
         className="mb-6"
       >
         <h3 className="text-lg font-bold text-warmGray-900 dark:text-white mb-3">
@@ -194,7 +286,7 @@ export default function Menu() {
             <span className="font-semibold text-sm">All</span>
           </motion.button>
           {/* Category buttons */}
-          {categories.map((cat) => (
+          {getPrioritizedCategories().map((cat) => (
             <motion.button
               key={cat._id}
               whileTap={{ scale: 0.95 }}
@@ -206,7 +298,7 @@ export default function Menu() {
               }`}
             >
               <div className="w-16 h-16 bg-primary-100 dark:bg-warmGray-800 rounded-full flex items-center justify-center text-2xl">
-                🍴
+                {cat.name.toLowerCase() === "deals" ? "🔥" : "🍴"}
               </div>
               <span className="font-semibold text-sm">
                 {cat.name}
