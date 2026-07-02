@@ -18,9 +18,8 @@ export default function Cart() {
   const [loading, setLoading] = useState(false);
 
   const subtotal = items.reduce((sum, item) => {
-    const itemPrice = Number(item.totalPrice) || Number(item.price);
-    return sum + itemPrice * Number(item.qty || item.quantity);
-  }, 0);
+  return sum + Number(item.price) * Number(item.qty);
+}, 0);
 
   const discount = isFirstOrder ? subtotal * 0.2 : 0;
   const finalTotal = (subtotal - discount) + DELIVERY_CHARGE;
@@ -127,7 +126,7 @@ export default function Cart() {
                   </div>
 
                   <p className="text-primary-600 dark:text-primary-400 font-semibold text-lg">
-                    Rs. {(Number(item.totalPrice || item.price) * Number(item.qty || item.quantity))}
+                    Rs. {Number(item.price) * Number(item.qty)}
                   </p>
                 </div>
 
