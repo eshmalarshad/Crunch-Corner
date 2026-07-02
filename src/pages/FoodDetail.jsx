@@ -87,14 +87,18 @@ export default function FoodDetail() {
   };
 
  const handleAddToCart = () => {
+  const perItemPrice = calculateItemPrice();
   const cartItem = {
-    ...food,
     id: food._id,
+    name: food.name,
+    description: food.description,
+    image: food.image,
+    category: food.category,
     qty: quantity,
     selectedSize,
     selectedFlavor,
     selectedToppings,
-    price: calculateItemPrice(),
+    price: perItemPrice,
   };
 
   dispatch(addToCart(cartItem));
