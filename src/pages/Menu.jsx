@@ -60,7 +60,12 @@ export default function Menu() {
   };
 
   // Get deals
-  const dealItems = foods.filter(food => food.isDeal && food.available);
+  const dealItems = foods.filter(food => 
+    food.available && (
+      food.isDeal || 
+      food.category?.name?.toLowerCase() === "deals"
+    )
+  );
 
   // Function to get filtered data considering search
   const getFilteredMenuData = () => {
