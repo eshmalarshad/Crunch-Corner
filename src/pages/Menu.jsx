@@ -205,7 +205,7 @@ export default function Menu() {
         >
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-xl font-bold text-warmGray-900 dark:text-white">
-              🔥 Hot Deals
+               Deals
             </h3>
             <div className="flex gap-2">
               <motion.button
