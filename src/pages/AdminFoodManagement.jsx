@@ -19,6 +19,7 @@ export default function AdminFoodManagement() {
     category: "",
     image: "",
     available: true,
+    isDeal: false,
     sizes: [],
     flavors: [],
     extraToppings: [],
@@ -120,6 +121,7 @@ export default function AdminFoodManagement() {
       category: food.category?._id || food.category,
       image: food.image,
       available: food.available,
+      isDeal: food.isDeal || false,
       sizes: (food.sizes || []).map(size => ({
         ...size,
         price: size.price.toString()
@@ -143,6 +145,7 @@ export default function AdminFoodManagement() {
       category: "",
       image: "",
       available: true,
+      isDeal: false,
       sizes: [],
       flavors: [],
       extraToppings: [],
@@ -296,15 +299,22 @@ export default function AdminFoodManagement() {
                         <h3 className="text-sm font-bold text-warmGray-900 dark:text-white">
                           {food.name}
                         </h3>
-                        <span
-                          className={`px-1.5 py-0.5 rounded text-xs font-semibold ${
-                            food.available
-                              ? "bg-green-100 text-green-600"
-                              : "bg-red-100 text-red-600"
-                          }`}
-                        >
-                          {food.available ? "Available" : "Unavailable"}
-                        </span>
+                        <div className="flex gap-1">
+                          {food.isDeal && (
+                            <span className="px-1.5 py-0.5 rounded text-xs font-semibold bg-orange-100 text-orange-600">
+                              Deal
+                            </span>
+                          )}
+                          <span
+                            className={`px-1.5 py-0.5 rounded text-xs font-semibold ${
+                              food.available
+                                ? "bg-green-100 text-green-600"
+                                : "bg-red-100 text-red-600"
+                            }`}
+                          >
+                            {food.available ? "Available" : "Unavailable"}
+                          </span>
+                        </div>
                       </div>
                       <p className="text-warmGray-600 dark:text-warmGray-400 text-xs mb-2 line-clamp-1">
                         {food.description}
@@ -375,15 +385,22 @@ export default function AdminFoodManagement() {
                         <h3 className="text-sm font-bold text-warmGray-900 dark:text-white">
                           {food.name}
                         </h3>
-                        <span
-                          className={`px-1.5 py-0.5 rounded text-xs font-semibold ${
-                            food.available
-                              ? "bg-green-100 text-green-600"
-                              : "bg-red-100 text-red-600"
-                          }`}
-                        >
-                          {food.available ? "Available" : "Unavailable"}
-                        </span>
+                        <div className="flex gap-1">
+                          {food.isDeal && (
+                            <span className="px-1.5 py-0.5 rounded text-xs font-semibold bg-orange-100 text-orange-600">
+                              Deal
+                            </span>
+                          )}
+                          <span
+                            className={`px-1.5 py-0.5 rounded text-xs font-semibold ${
+                              food.available
+                                ? "bg-green-100 text-green-600"
+                                : "bg-red-100 text-red-600"
+                            }`}
+                          >
+                            {food.available ? "Available" : "Unavailable"}
+                          </span>
+                        </div>
                       </div>
                       <p className="text-warmGray-600 dark:text-warmGray-400 text-xs mb-2 line-clamp-1">
                         {food.description}
@@ -704,6 +721,24 @@ export default function AdminFoodManagement() {
                     className="text-warmGray-600 dark:text-warmGray-400 text-sm"
                   >
                     Available
+                  </label>
+                </div>
+
+                <div className="flex items-center gap-2">
+                  <input
+                    type="checkbox"
+                    id="isDeal"
+                    checked={formData.isDeal}
+                    onChange={(e) =>
+                      setFormData(prev => ({ ...prev, isDeal: e.target.checked }))
+                    }
+                    className="w-4 h-4"
+                  />
+                  <label
+                    htmlFor="isDeal"
+                    className="text-warmGray-600 dark:text-warmGray-400 text-sm"
+                  >
+                    Mark as Deal
                   </label>
                 </div>
 
