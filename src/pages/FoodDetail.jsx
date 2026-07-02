@@ -40,7 +40,7 @@ export default function FoodDetail() {
           price: Number(topping.price)
         }));
       }
-      
+
       if (!foodData.available) {
         toast.error("This item is currently unavailable");
         navigate("/menu");
@@ -63,44 +63,45 @@ export default function FoodDetail() {
   };
 
   const toggleTopping = (topping) => {
-    setSelectedToppings(prev => 
-      prev.some(t => t.name === topping.name) 
-        ? prev.filter(t => t.name !== topping.name) 
+    setSelectedToppings(prev =>
+      prev.some(t => t.name === topping.name)
+        ? prev.filter(t => t.name !== topping.name)
         : [...prev, topping]
     );
   };
 
-  const calculateTotalPrice = () => {
+  const calculateItemPrice = () => {
     let total = 0;
+
     if (food.sizes && food.sizes.length > 0 && selectedSize) {
-      // If there are sizes, the selected size's price is the base price for that size
       total = Number(selectedSize.price);
     } else {
-      // No sizes, use base price
       total = Number(food.price);
     }
-    selectedToppings.forEach(topping => {
+
+    selectedToppings.forEach((topping) => {
       total += Number(topping.price);
     });
-    return total * quantity;
+
+    return total;
   };
 
-  const handleAddToCart = () => {
-    const cartItem = {
-      ...food,
-      id: food._id,
-      quantity,
-      selectedSize,
-      selectedFlavor,
-      selectedToppings,
-      totalPrice: calculateTotalPrice()
-    };
-    for (let i = 0; i < quantity; i++) {
-      dispatch(addToCart(cartItem));
-    }
-    toast.success("Added to cart!");
-    navigate('/menu');
+ const handleAddToCart = () => {
+  const cartItem = {
+    ...food,
+    id: food._id,
+    qty: quantity,
+    selectedSize,
+    selectedFlavor,
+    selectedToppings,
+    price: calculateItemPrice(),
   };
+
+  dispatch(addToCart(cartItem));
+
+  toast.success("Added to cart!");
+  navigate("/menu");
+};
 
   if (loading) {
     return (
@@ -200,11 +201,10 @@ export default function FoodDetail() {
                 key={idx}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => setSelectedSize(size)}
-                className={`p-4 rounded-2xl border-2 transition-all duration-200 ${
-                  selectedSize?.name === size.name
+                className={`p-4 rounded-2xl border-2 transition-all duration-200 ${selectedSize?.name === size.name
                     ? "border-primary-500 bg-primary-50 dark:bg-primary-900/30"
                     : "border-warmGray-200 dark:border-warmGray-700 bg-white dark:bg-warmGray-900"
-                }`}
+                  }`}
               >
                 <span className="block font-bold text-warmGray-900 dark:text-white">
                   {size.name}
@@ -235,11 +235,10 @@ export default function FoodDetail() {
                 key={idx}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => setSelectedFlavor(flavor)}
-                className={`p-4 rounded-2xl border-2 transition-all duration-200 ${
-                  selectedFlavor === flavor
+                className={`p-4 rounded-2xl border-2 transition-all duration-200 ${selectedFlavor === flavor
                     ? "border-primary-500 bg-primary-50 dark:bg-primary-900/30"
                     : "border-warmGray-200 dark:border-warmGray-700 bg-white dark:bg-warmGray-900"
-                }`}
+                  }`}
               >
                 <span className="block font-bold text-warmGray-900 dark:text-white">
                   {flavor}
@@ -267,11 +266,10 @@ export default function FoodDetail() {
                 key={idx}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => toggleTopping(topping)}
-                className={`p-4 rounded-2xl border-2 transition-all duration-200 ${
-                  selectedToppings.some(t => t.name === topping.name)
+                className={`p-4 rounded-2xl border-2 transition-all duration-200 ${selectedToppings.some(t => t.name === topping.name)
                     ? "border-primary-500 bg-primary-50 dark:bg-primary-900/30"
                     : "border-warmGray-200 dark:border-warmGray-700 bg-white dark:bg-warmGray-900"
-                }`}
+                  }`}
               >
                 <span className="block font-bold text-warmGray-900 dark:text-white">
                   {topping.name}
@@ -329,7 +327,7 @@ export default function FoodDetail() {
           className="w-full py-4 bg-gradient-to-r from-primary-500 to-secondary-500 text-white font-bold text-lg rounded-2xl shadow-lg flex items-center justify-center gap-2"
         >
           <FiShoppingCart className="w-6 h-6" />
-          Add to Cart - Rs. {calculateTotalPrice()}
+          Add to Cart - Rs. {calculateItemPrice() * quantity}
         </motion.button>
       </motion.div>
     </div>
