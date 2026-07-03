@@ -73,14 +73,14 @@ export default function Cart() {
   }
 
   return (
-    <div className="p-4 pb-40">
+    <div className="p-4 pb-40 md:px-0">
       {/* HEADER */}
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         className="mb-6"
       >
-        <h1 className="text-3xl font-extrabold text-warmGray-900 dark:text-white">
+        <h1 className="text-3xl md:text-4xl font-extrabold text-warmGray-900 dark:text-white">
           Your Cart
         </h1>
       </motion.div>
@@ -93,19 +93,19 @@ export default function Cart() {
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: index * 0.1 }}
-            className="bg-white dark:bg-warmGray-900 rounded-2xl shadow-lg p-4 border border-warmGray-100 dark:border-warmGray-800"
+            className="bg-white dark:bg-warmGray-900 rounded-2xl shadow-lg p-4 md:p-6 border border-warmGray-100 dark:border-warmGray-800"
           >
-            <div className="flex gap-4">
+            <div className="flex gap-4 md:gap-6">
               {item.image && (
                 <img
                   src={item.image}
                   alt={item.name}
-                  className="w-24 h-24 rounded-xl object-cover shadow-md"
+                  className="w-24 h-24 md:w-32 md:h-32 rounded-xl object-cover shadow-md"
                 />
               )}
               <div className="flex-1 flex flex-col justify-between">
                 <div>
-                  <h3 className="font-bold text-lg text-warmGray-900 dark:text-white mb-1">
+                  <h3 className="font-bold text-lg md:text-xl text-warmGray-900 dark:text-white mb-1">
                     {item.name}
                   </h3>
                   
@@ -125,7 +125,7 @@ export default function Cart() {
                     )}
                   </div>
 
-                  <p className="text-primary-600 dark:text-primary-400 font-semibold text-lg">
+                  <p className="text-primary-600 dark:text-primary-400 font-semibold text-lg md:text-xl">
                     Rs. {Number(item.price) * Number(item.qty)}
                   </p>
                 </div>
@@ -135,19 +135,19 @@ export default function Cart() {
                     <motion.button
                       whileTap={{ scale: 0.9 }}
                       onClick={() => dispatch(decreaseQty(item.id))}
-                      className="w-9 h-9 flex items-center justify-center bg-white dark:bg-warmGray-900 rounded-full text-warmGray-700 dark:text-white shadow-sm"
+                      className="w-10 h-10 md:w-12 md:h-12 flex items-center justify-center bg-white dark:bg-warmGray-900 rounded-full text-warmGray-700 dark:text-white shadow-sm"
                     >
-                      <FiMinus size={16} />
+                      <FiMinus size={18} className="md:w-5 md:h-5" />
                     </motion.button>
-                    <span className="font-bold text-lg text-warmGray-900 dark:text-white w-8 text-center">
+                    <span className="font-bold text-xl md:text-2xl text-warmGray-900 dark:text-white w-10 md:w-12 text-center">
                       {item.qty}
                     </span>
                     <motion.button
                       whileTap={{ scale: 0.9 }}
                       onClick={() => dispatch(increaseQty(item.id))}
-                      className="w-9 h-9 flex items-center justify-center bg-primary-500 text-white rounded-full shadow-sm"
+                      className="w-10 h-10 md:w-12 md:h-12 flex items-center justify-center bg-primary-500 text-white rounded-full shadow-sm"
                     >
-                      <FiPlus size={16} />
+                      <FiPlus size={18} className="md:w-5 md:h-5" />
                     </motion.button>
                   </div>
                   <motion.button
@@ -155,7 +155,7 @@ export default function Cart() {
                     onClick={() => dispatch(removeItem(item.id))}
                     className="text-warmGray-500 hover:text-red-500 transition-colors duration-200"
                   >
-                    <FiTrash2 size={20} />
+                    <FiTrash2 size={24} className="md:w-7 md:h-7" />
                   </motion.button>
                 </div>
               </div>
@@ -165,25 +165,25 @@ export default function Cart() {
       </div>
 
       {/* CHECKOUT */}
-      <div className="fixed bottom-20 left-4 right-4 bg-white dark:bg-warmGray-900 rounded-2xl shadow-xl border border-warmGray-100 dark:border-warmGray-800 p-5">
+      <div className="fixed bottom-20 left-4 right-4 md:left-auto md:right-auto md:relative md:bottom-auto bg-white dark:bg-warmGray-900 rounded-2xl shadow-xl border border-warmGray-100 dark:border-warmGray-800 p-5 md:p-7">
         {isFirstOrder && (
           <motion.div 
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="bg-green-100 dark:bg-green-500/20 border border-green-200 dark:border-green-500/30 rounded-xl p-3 mb-4"
+            className="bg-green-100 dark:bg-green-500/20 border border-green-200 dark:border-green-500/30 rounded-xl p-3 md:p-4 mb-4"
           >
-            <p className="text-green-700 dark:text-green-300 font-semibold text-sm flex items-center gap-2">
+            <p className="text-green-700 dark:text-green-300 font-semibold text-sm md:text-base flex items-center gap-2">
               🎉 Congratulations! You get 20% off on your first order!
             </p>
           </motion.div>
         )}
         
-        <div className="space-y-2 mb-4">
+        <div className="space-y-2 mb-4 md:space-y-3">
           <div className="flex justify-between items-center">
-            <span className="text-warmGray-600 dark:text-warmGray-400">
+            <span className="text-warmGray-600 dark:text-warmGray-400 text-base md:text-lg">
               Subtotal
             </span>
-            <span className="text-warmGray-800 dark:text-warmGray-200">
+            <span className="text-warmGray-800 dark:text-warmGray-200 text-lg md:text-xl">
               Rs. {subtotal}
             </span>
           </div>
@@ -194,21 +194,21 @@ export default function Cart() {
               animate={{ opacity: 1, x: 0 }}
               className="flex justify-between items-center text-green-600 dark:text-green-400"
             >
-              <span>Discount (20%)</span>
-              <span>- Rs. {discount.toFixed(0)}</span>
+              <span className="text-base md:text-lg">Discount (20%)</span>
+              <span className="text-lg md:text-xl">- Rs. {discount.toFixed(0)}</span>
             </motion.div>
           )}
           
           <div className="flex justify-between items-center text-warmGray-700 dark:text-warmGray-400">
-            <span>Delivery Charge</span>
-            <span>Rs. {DELIVERY_CHARGE}</span>
+            <span className="text-base md:text-lg">Delivery Charge</span>
+            <span className="text-lg md:text-xl">Rs. {DELIVERY_CHARGE}</span>
           </div>
           
           <div className="flex justify-between items-center pt-2 border-t border-warmGray-200 dark:border-warmGray-700">
-            <span className="text-warmGray-700 dark:text-warmGray-400 text-lg font-semibold">
+            <span className="text-warmGray-700 dark:text-warmGray-400 text-xl md:text-2xl font-semibold">
               Total
             </span>
-            <span className="text-2xl font-extrabold text-primary-600 dark:text-primary-400">
+            <span className="text-2xl md:text-3xl font-extrabold text-primary-600 dark:text-primary-400">
               Rs. {finalTotal.toFixed(0)}
             </span>
           </div>
@@ -217,7 +217,7 @@ export default function Cart() {
         <motion.button
           whileTap={{ scale: 0.97 }}
           onClick={handleCheckout}
-          className="w-full bg-primary-500 hover:bg-primary-600 text-white font-bold py-4 rounded-xl shadow-lg transition-all duration-200"
+          className="w-full bg-primary-500 hover:bg-primary-600 text-white font-bold py-4 md:py-5 rounded-xl shadow-lg transition-all duration-200 text-lg md:text-xl"
         >
           Place Order
         </motion.button>
