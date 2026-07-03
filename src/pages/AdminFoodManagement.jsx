@@ -241,12 +241,12 @@ export default function AdminFoodManagement() {
   };
 
   return (
-    <div className="min-h-screen bg-primary-50 dark:bg-warmGray-950 p-4">
+    <div className="min-h-screen bg-primary-50 dark:bg-warmGray-950 p-4 md:p-6">
       <div className="max-w-7xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="flex items-center justify-between mb-6"
+          className="flex items-center justify-between mb-6 md:mb-8"
         >
           <div className="flex items-center gap-3">
             <button
@@ -255,7 +255,7 @@ export default function AdminFoodManagement() {
             >
               <FiArrowLeft className="w-5 h-5" />
             </button>
-            <h1 className="text-2xl md:text-3xl font-bold text-primary-600 dark:text-primary-400">
+            <h1 className="text-2xl md:text-3xl font-bold text-warmGray-900 dark:text-white">
               Food Management
             </h1>
           </div>
