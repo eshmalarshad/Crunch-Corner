@@ -3,9 +3,12 @@
 Crunch Corner is a single-restaurant food delivery platform that lets customers browse a menu, place orders, and track their order history, while giving admins full control over food items, categories, and order fulfillment. It's built on the **MERN stack** with **Firebase Authentication** for secure, Gmail-verified sign-ups.
 
 ---
-
   Live Demo
-  https://crunch-corner.vercel.app/
+<div align="center">
+[Crunch & Corner](https://crunch-corner.vercel.app/)
+</div>
+
+  
 
   Features
 
@@ -146,6 +149,4 @@ Create a Firebase config file at `frontend/src/firebase/firebase.config.js` with
 - **Deals** — Items flagged with `isDeal: true` automatically surface in the featured deals carousel.
 
 ---
-<div align="center">
-Made with ❤️ using the MERN stack
-</div>
+
