@@ -3,9 +3,10 @@
 Crunch Corner is a single-restaurant food delivery platform that lets customers browse a menu, place orders, and track their order history, while giving admins full control over food items, categories, and order fulfillment. It's built on the **MERN stack** with **Firebase Authentication** for secure, Gmail-verified sign-ups.
 
 ---
-  Live Demo
+  
 <div align="center">
-(https://crunch-corner.vercel.app/)
+  Live Demo
+  https://crunch-corner.vercel.app/
 </div>
 
   
