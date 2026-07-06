@@ -5,7 +5,7 @@ Crunch Corner is a single-restaurant food delivery platform that lets customers 
 ---
   Live Demo
 <div align="center">
-[Crunch & Corner](https://crunch-corner.vercel.app/)
+(https://crunch-corner.vercel.app/)
 </div>
 
   
